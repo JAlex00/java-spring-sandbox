@@ -29,6 +29,7 @@ public class ExSpringIOC {
             System.out.println(s.wins);
         }
 
+        // Example @Autowired
         Game game = spring.getBean(Game.class);
         game.playTheGame();
         System.out.println(game.score.wins); //Stampa 6, perche' l'istanza e' sempre la stessa
@@ -40,12 +41,14 @@ class Game {
     // Score e' una dipendenza di Game
     /** Dependency Injection
      * Grazie ad @Autowired, sto passando l'istanza di Score dentro Game
-     * Quando richiamero' Game, non avro' bisogno di istanziare Score
+     * (non ho bisogno di richiamare lo spring container)
      * */
     @Autowired
     Score score;
 
     public void playTheGame() {
+
+        //Non devo istanziare manualmente Score, perche' sto usando @Autowired
         score.wins++;
     }
 }
