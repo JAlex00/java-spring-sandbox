@@ -2,17 +2,19 @@ package com.alex.springDemo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 // Per gestire richieste di tipo REST
-@Controller
+@RestController
 public class BookController {
 
     @Autowired
     BookRepository bookRepository;
+
+    @Autowired
+    BookDao bookDao;
 
     /** Spring REST
      * Creo l'API /books che accetta una richiesta POST
@@ -30,6 +32,11 @@ public class BookController {
     @GetMapping("/books")
     public List<Book> retrieveAllBooks() {
         return bookRepository.findAll();
+    }
+
+    @GetMapping("/cacheExample")
+    public List<Book> cacheExample() {
+        return bookDao.findAllAndSaveInCache();
     }
 
     /**
